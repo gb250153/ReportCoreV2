@@ -1,0 +1,151 @@
+﻿@model ReportCoreV2.Models.ViewModel.DataPointsForGraphsViewModel
+<style>
+</style>
+
+
+
+<div id="@Html.Raw(Model.GuidID)">
+
+
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/Chart.min.js"></script>
+
+<script>
+
+    var result = @Html.Raw(Model.DataPointsAsStringForUI);
+    var passrate = @Html.Raw(Model.Passrate);
+
+
+    var canvasElement = document.createElement("canvas");
+    var divElement = document.createElement("div");
+
+    divElement.appendChild(canvasElement);
+    $("#@Html.Raw(Model.GuidID)").append(divElement);
+        //$("#drawHere").append(canvas);
+    //    $("#drawHere").html(canvasElement);
+        var myChart = new Chart(canvasElement, {
+            type: 'doughnut',
+            showTooltips: true,
+            plugins: [{
+                afterDraw: chart => {
+                    var needleValue = chart.chart.config.data.datasets[0].needleValue;
+                    var dataTotal = chart.chart.config.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                    var angle = Math.PI + (1 / dataTotal * needleValue * Math.PI);
+                    var ctx = chart.chart.ctx;
+                    var cw = chart.chart.canvas.offsetWidth;
+                    var ch = chart.chart.canvas.offsetHeight;
+                    var cx = cw / 2;
+                    var cy = ch - 6;
+
+                    ctx.translate(cx, cy);
+                    ctx.rotate(angle);
+                    ctx.beginPath();
+                    ctx.moveTo(0, -3);
+                    ctx.lineTo(ch - 20, 0);
+                    ctx.lineTo(0, 3);
+                    ctx.fillStyle = 'rgb(0, 0, 0)';
+                    ctx.fill();
+                    ctx.rotate(-angle);
+                    ctx.translate(-cx, -cy);
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }],
+        data: {
+           // labels: ['Pass', 'Fail', 'Flow Error', 'Technical Error'],
+            //labels: names,
+            datasets: [{
+               //label: '0,10,20,30,40,50,60,70,80,90,100',
+                //data: result,
+                data: [70, 15, 15],
+                needleValue: passrate,
+                backgroundColor: ['rgba(255, 51, 51, 0.7)', 'rgba(230, 230, 0, 0.6)', 'rgba(0, 230, 0, 0.6)'],
+                //    'rgba(39, 200, 39, 1.0)',
+                //    'rgba(200, 39, 39, 1.0)',
+                //    'rgba(0, 0, 0, 1.0)',
+                //
+                //],
+                borderColor: ['rgba(255, 51, 51, 1.0)', 'rgba(230, 230, 0, 1.0)', 'rgba(0, 230, 0, 1.0)'],
+                    //'rgba(255, 255, 255, 1)',
+                    //'rgba(255, 255, 255, 1)',
+                    //'rgba(255, 255, 255, 1)',
+                    //'rgba(255, 255, 255, 1)',
+
+
+                    // ],
+
+
+                animation: {
+                    onComplete: function () {
+                        drawNeedle(150, -45 * Math.PI / 180);
+                    }
+                }
+
+
+
+			}]
+            },
+
+
+
+
+
+            options: {
+                layout: {
+                    padding: {
+                        top: 20,
+                        bottom:5
+                    }
+                },
+                legend: {
+                    display: true
+                },
+                circumference: 1 * Math.PI,
+                rotation: 1 * Math.PI,
+                cutoutPercentage: 80,
+
+                tooltips: {
+                    enabled: false
+                },
+
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+                }
+
+
+
+		}
+    });
+
+        function drawNeedle(radius, radianAngle) {
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext('2d');
+            var cw = canvas.offsetWidth;
+            var ch = canvas.offsetHeight;
+            var cx = cw / 2;
+            var cy = ch - (ch / 4);
+
+            ctx.translate(cx, cy);
+            ctx.rotate(radianAngle);
+            ctx.beginPath();
+            ctx.moveTo(0, -5);
+            ctx.lineTo(radius, 0);
+            ctx.lineTo(0, 5);
+            ctx.fillStyle = 'rgba(0, 76, 0, 0.8)';
+            ctx.fill();
+            ctx.rotate(-radianAngle);
+            ctx.translate(-cx, -cy);
+            ctx.beginPath();
+            ctx.arc(cx, cy, 7, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+
+</script>
+
+

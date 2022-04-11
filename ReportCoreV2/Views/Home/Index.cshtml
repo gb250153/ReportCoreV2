@@ -1,0 +1,273 @@
+﻿@model ReportCoreV2.Models.ViewModel.DashboardViewModel
+
+
+<style>
+    .box {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        margin-bottom: 1.5rem;
+        word-wrap: break-word;
+        background-clip: border-box;
+        border: 1px solid;
+        border-radius: .25rem;
+        background-color: #fff;
+        border-color: #d8dbe0;
+    }
+
+    .chartboxHeader {
+        padding: .75rem 1.25rem;
+        margin-bottom: 0;
+        border-bottom: 1px solid;
+        background-color: #fff;
+        border-color: #d8dbe0;
+        border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+    }
+
+    .chartbox {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        margin-bottom: 1.5rem;
+        word-wrap: break-word;
+        background-clip: border-box;
+        border: 1px solid;
+        border-radius: .25rem;
+        background-color: #FAFAFA;
+        border-color: #EEEEEE;
+        width: 70%;
+        height: 70%;
+        display: inline-block;
+        position: relative;
+        padding-top: 10px;
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1.25rem;
+        display: inline-block;
+    }
+    .card-body {
+        background-color: #fbfbfb;
+        box-shadow: 0 0 10px 0 rgb(0,0,0,0.3);
+        text-align: center;
+        border-radius: 0.25rem;
+    }
+    .card-header {
+        background-color: white;
+    }
+    .card-columns .cols-2 {
+        text-align: center;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    h3 {
+        text-align: center;
+    }
+</style>
+
+
+
+
+
+<div class="container-fluid">
+
+    <div class="fade-in">
+        <div class="card-columns cols-2">
+
+            <div class="card">
+                <div class="card-header">
+                    Scenarios Executed in <strong>@Html.DisplayFor(modelItem => Model.YearofData) </strong>
+                    <div class="card-header-actions">
+
+                        @{
+                            foreach (var chart in Model.ExecutionLogDashboardDataForGraphs)
+                            {
+
+                                <div class="card-header-action"> Total Scenarios:@Html.DisplayFor(modelItem => chart.ProjectTotal)</div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="c-chart-wrapper">
+                        @{
+                            foreach (var chart in Model.ExecutionLogDashboardDataForGraphs)
+                            {
+                                
+                               await Html.RenderPartialAsync("_ExecutionLogForDashboard", chart);
+
+                            }
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-header">
+                    Scenarios Executed in <strong> @Html.DisplayFor(modelItem => Model.MonthName) @Html.DisplayFor(modelItem => Model.YearofData)</strong>
+                    <div class="card-header-actions">
+
+                        @{
+                            foreach (var chart in Model.ExecutionLogCurrentmonthDashboardDataForGraphs)
+                            {
+
+                                <div class="card-header-action"> Total Scenarios:@Html.DisplayFor(modelItem => chart.ProjectTotal)</div>
+
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="c-chart-wrapper">
+
+                        @{
+                            foreach (var chart in Model.ExecutionLogCurrentmonthDashboardDataForGraphs)
+                            {
+
+                                await Html.RenderPartialAsync("_ExecutionLogForDashboard", chart);
+                            }
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    Scenarios Executed in <strong>@Html.DisplayFor(modelItem => Model.LastYearofData)</strong>
+                    <div class="card-header-actions">
+
+                        @{
+                            foreach (var chart in Model.LastYearExecutionLogDashboardDataForGraphs)
+                            {
+
+                                <div class="card-header-action"> Total Scenarios:@Html.DisplayFor(modelItem => chart.ProjectTotal)</div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="c-chart-wrapper">
+                        @{
+                            foreach (var chart in Model.LastYearExecutionLogDashboardDataForGraphs)
+                            {
+
+                                await Html.RenderPartialAsync("_ExecutionLogForDashboard", chart);
+
+                            }
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    Scenarios Created in <strong>@Html.DisplayFor(modelItem => Model.YearofData) </strong>
+                    <div class="card-header-actions">
+
+                        @{
+                            foreach (var chart in Model.ApprovedScenarioLogDashboardDataForGraphs)
+                            {
+
+                                <div class="card-header-action"> Total Scenarios:@Html.DisplayFor(modelItem => chart.ProjectTotal)</div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="c-chart-wrapper">
+
+
+                        @{
+                            foreach (var chart in Model.ApprovedScenarioLogDashboardDataForGraphs)
+                            {
+
+                                await Html.RenderPartialAsync("_ExecutionLogForDashboard", chart);
+                            }
+                        }
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Scenarios Created in <strong>@Html.DisplayFor(modelItem => Model.YearofData)</strong> - Weekly Progress
+                    <div class="card-header-actions">
+
+                        @{
+                            foreach (var chart in Model.ApprovedScenarioLogByWeekDashboardDataForGraphs)
+                            {
+
+                                <div class="card-header-action"> Total Scenarios:@Html.DisplayFor(modelItem => chart.ProjectTotal)</div>
+                            }
+                        }
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="c-chart-wrapper">
+
+
+                        @{
+                            foreach (var chart in Model.ApprovedScenarioLogByWeekDashboardDataForGraphs)
+                            {
+
+                                await Html.RenderPartialAsync("_ApprovedScenarioprogressForDashboard", chart);
+                            }
+                        }
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Scenarios Created in <strong>@Html.DisplayFor(modelItem => Model.LastYearofData)</strong>
+                    <div class="card-header-actions">
+
+                        @{
+                            foreach (var chart in Model.LastYearApprovedScenarioLogDashboardDataForGraphs)
+                            {
+
+                                <div class="card-header-action"> Total Scenarios:@Html.DisplayFor(modelItem => chart.ProjectTotal)</div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="c-chart-wrapper">
+
+
+                        @{
+                            foreach (var chart in Model.LastYearApprovedScenarioLogDashboardDataForGraphs)
+                            {
+
+                                await Html.RenderPartialAsync("_ExecutionLogForDashboard", chart);
+                            }
+                        }
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

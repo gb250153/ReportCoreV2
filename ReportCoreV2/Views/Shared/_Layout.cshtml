@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SATE Reports</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/fonts/icomoon/style.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/ChartCard.css" />
+    
+</head>
+<body>
+    <aside class="sidebar">
+        <div class=" toggle">
+            <a href="#" class="burger js-menu-toggle" data-toggle="collapse" data-target="#main-navbar">
+                <span></span>
+            </a>
+        </div>
+        <div class="side-inner" style="overflow-y:auto;">
+
+            <div class="profile">
+                <img src="~/Images/logo_ncr.jpg" alt="Image" class="img-fluid">
+                <h3 class="name">SATE Reports Module</h3>
+
+            </div>
+
+
+            <div class="nav-menu">
+                <ul>
+                    <li><a href="/Home"><span class="icon-home mr-3"></span>Home</a></li>
+                    <li class="accordion">
+                        <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="collapsible">
+                            <span class="icon-table mr-3"></span>Reports
+                        </a>
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
+                            <div>
+                                <ul>
+
+                                    <li><a href="/Reports/ExecutionReport">Scenarios Execution Report <span class="mr-3"></span></a></li>
+                                    <li><a href="/Reports/ApprovedScenarioReport">Scenarios Created Report</a></li>
+                                    @*<li><a href="/Reports/DurationReport">Duration Report</a></li>*@
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li><a href="/ProjectDashboard/Index"><span class="icon-pie-chart mr-3"></span>Project Dashboard</a></li>
+                    <li><a href="/ExternalReports/Index"><span class="icon-external-link-square mr-3"></span>External Projects</a></li>
+
+                    <!--<li class="accordion">
+                        <a href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" class="collapsible">
+                            <span class="icon-external-link-square mr-3"></span>External Projects
+                        </a>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo">
+                            <div>
+                                <ul>
+
+                                    <li><a href="/ExternalReports/ExternalExecutionAdd">Add Execution</a></li>
+                                    <li><a href="/ExternalReports/CreatedScenariosEntry">Add Created Scenarios</a></li>
+                                    <li><a href="/ExternalReports/Index">Index</a></li>-->
+
+                                    @*<li><a href="#">Add Scenarios</a></li>
+                        <li>
+                            <a onclick="showInPopup('@Url.Action("Index","ExternalReports",null)','New Transaction')">Add</a>
+                        </li>*@
+                                <!--</ul>
+                            </div>
+                        </div>
+                    </li>-->
+
+
+                </ul>
+            </div>
+        </div>
+
+
+    </aside>
+    <header>
+    </header>
+    <div class="container" style="max-width: 1700px;">
+        <main role="main" class="pb-3 pt-3">
+            @RenderBody()
+        </main>
+    </div>
+    <div class="modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" id="form-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div class="modal" tabindex="-1" role="dialog" id="form-modal">
+            <div class="modal-dialog" role="document" style="width:480px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <h5 class="modal-title"></h5>
+
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    @*<footer>
+        <p>&copy; @DateTime.Now.Year - GB</p>
+        </footer>*@
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/notify.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/main.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+
+
+
+</body>
+</html>

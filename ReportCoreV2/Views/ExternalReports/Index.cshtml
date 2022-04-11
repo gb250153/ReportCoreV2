@@ -1,0 +1,246 @@
+﻿@model ReportCoreV2.Models.ViewModel.ExternalDashboardViewModel
+<style>
+    .card-body {
+        background-color: #fbfbfb;
+        box-shadow: 0 0 10px 0 rgb(0,0,0,0.3);
+        text-align: center;
+        border-radius: 0.25rem;
+    }
+
+    .project-title {
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .card-body-chart {
+        text-align: left;
+    }
+
+    .card-body-title {
+        text-align: left;
+        margin-bottom: 30px;
+    }
+
+    h6 {
+        font-size: 0.8rem;
+    }
+
+    .chartDiv {
+        position: relative;
+        width: 390px;
+        height: 190px;
+    }
+
+    .top-card-body {
+        margin-left: 8rem !important;
+        text-align: left;
+    }
+
+    .card-header {
+        background-color: white;
+    }
+</style>
+<head>
+    <meta charset="utf-8">
+
+
+
+</head>
+<header>
+    <div class=" row">
+        <div class=" col-lg-8 mb-3">
+
+        </div>
+        <div class="col-lg-4 mb-3" style="text-align:end">
+            <button type="button" class="btn btn-outline-success" id="btn1">Add New Execution</button>
+
+
+            <button type="button" class="btn btn-outline-success" id="btn2">Add New Scenarios</button>
+        </div>
+    </div>
+
+    
+</header>
+
+
+<div class="card-columns cols-2">
+
+
+
+    <div class="card">
+        <div class="card-header">
+            Scenarios Executed in <strong>@Html.DisplayFor(modelItem => Model.YearofData) </strong>
+            <div class="card-header-actions">
+
+                @{
+                    foreach (var chart in Model.ExternalExecutionCurrentYearDashboardDataForGraphs)
+                    {
+
+                        <div class="card-header-action"> Total Scenarios:@Html.DisplayFor(modelItem => chart.ProjectTotal)</div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="c-chart-wrapper">
+                @{
+                    foreach (var chart in Model.ExternalExecutionCurrentYearDashboardDataForGraphs)
+                    {
+
+                        await Html.RenderPartialAsync("_BarChart", chart);
+
+                    }
+                }
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Scenarios Created in <strong>@Html.DisplayFor(modelItem => Model.YearofData) </strong>
+            <div class="card-header-actions">
+
+                @{
+                    foreach (var chart in Model.ExternalCreationCurrentYearDashboardDataForGraphs)
+                    {
+
+                        <div class="card-header-action"> Total Scenarios:@Html.DisplayFor(modelItem => chart.ProjectTotal)</div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="c-chart-wrapper">
+                @{
+                    foreach (var chart in Model.ExternalCreationCurrentYearDashboardDataForGraphs)
+                    {
+
+                        await Html.RenderPartialAsync("_BarChart", chart);
+
+                    }
+                }
+
+
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            Scenarios Executed in <strong>@Html.DisplayFor(modelItem => Model.YearofData)</strong> - Weekly Progress
+            <div class="card-header-actions">
+
+                @{
+                    foreach (var chart in Model.ExternalExecutionByWeekDashboardDataForGraphs)
+                    {
+
+                        <div class="card-header-action"> Total Scenarios:@Html.DisplayFor(modelItem => chart.ProjectTotal)</div>
+                    }
+                }
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="c-chart-wrapper">
+
+
+                @{
+                    foreach (var chart in Model.ExternalExecutionByWeekDashboardDataForGraphs)
+                    {
+
+                        await Html.RenderPartialAsync("_LineChart", chart);
+                    }
+                }
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            Scenarios Created in <strong>@Html.DisplayFor(modelItem => Model.YearofData)</strong> - Weekly Progress
+            <div class="card-header-actions">
+
+                @{
+                    foreach (var chart in Model.ExternalCreationByWeekDashboardDataForGraphs)
+                    {
+
+                        <div class="card-header-action"> Total Scenarios:@Html.DisplayFor(modelItem => chart.ProjectTotal)</div>
+                    }
+                }
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="c-chart-wrapper">
+
+
+                @{
+                    foreach (var chart in Model.ExternalCreationByWeekDashboardDataForGraphs)
+                    {
+
+                        await Html.RenderPartialAsync("_LineChart", chart);
+                    }
+                }
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModel" tabindex="-1" role="dialog" data-url='@Url.Action("_AddExecution","ExternalReports")'></div>
+
+<div class="modal fade" id="my2Model" tabindex="-1" role="dialog" data-url='@Url.Action("_AddScenarios","ExternalReports")'></div>
+
+
+
+
+
+
+<script src="~/lib/bootstrap/dist/js/jquery-3.3.1.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>
+    var Myjquery21 = jQuery.noConflict();
+    Myjquery21(document).ready(function () {
+       
+
+        Myjquery21('#btn1').click(function () {
+            var url = Myjquery21('#myModel').data('url');
+            Myjquery21.get(url, function (data) {
+                Myjquery21("#myModel").html(data);
+                Myjquery21("#myModel").modal('show');
+            });
+        });
+
+    });
+
+
+
+</script>
+<script>
+    var Myjquery23 = jQuery.noConflict();
+    Myjquery23(document).ready(function () {
+
+
+        Myjquery23('#btn2').click(function () {
+            var url = Myjquery23('#my2Model').data('url');
+            Myjquery23.get(url, function (data) {
+                Myjquery23("#my2Model").html(data);
+                Myjquery23("#my2Model").modal('show');
+            });
+        });
+
+    });
+
+
+
+</script>

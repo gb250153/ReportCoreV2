@@ -1,0 +1,76 @@
+﻿@model ReportCoreV2.Models.ViewModel.DurationListViewModel
+
+
+<link rel="stylesheet" type="text/css" href="~/DataTables/datatables.min.css" />
+<style>
+    thead {
+        background-color: #70BF60;
+        color: black;
+    }
+</style>
+
+@{
+    ViewData["Title"] = "Display Data";
+    string[] TableHeaders = new string[] {
+                        "Host"
+                        ,"Test set name"
+                        ,"Test set Date"
+                        ,"Test set Duration"
+                        ,"Scenario number"
+                        ,"Scenario Date"
+                        ,"Scenario Duration"
+                        ,"Action number"
+                        ,"Action name"
+                        ,"Action State"
+                        ,"Action Date"
+                        ,"Action duration" };
+}
+
+<div class="table">
+
+    <table id="myTable" class="table table-bordered table-hover table-sm">
+        <thead>
+            <tr>
+                @{
+                    foreach (var head in TableHeaders)
+                    {
+                        <th>
+                            @head
+                        </th>
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @{ if (Model != null)
+                {
+                    foreach (var Data in Model.DurationDataForUi)
+                    {
+                        <tr>
+                            <td>@Data.Host</td>
+                            <td>@Data.SetName</td>
+                            <td>@Data.SetTimeDate</td>
+                            <td>@Data.SetDuration</td>
+                            <td>@Data.ScenarioNumber</td>
+                            <td>@Data.ScenarioName</td>
+                            <td>@Data.ScenarioTimeDate</td>
+                            <td>@Data.ScenarioDuration</td>
+                            <td>@Data.ActionNumber</td>
+                            <td>@Data.ActionName</td>
+                            <td>@Data.ActionActual</td>
+                            <td>@Data.ActionTimeDate</td>
+                            <td>@Data.ActionDuration</td>
+                            
+                        </tr>
+                    }
+
+
+                }
+            }
+        </tbody>
+    </table>
+    <a href="@(Url.Action("ExportDurationInfo") + ViewContext.HttpContext.Request.QueryString)">
+        <span class="icon-file-excel-o mr-3"></span>
+    </a>
+
+</div>

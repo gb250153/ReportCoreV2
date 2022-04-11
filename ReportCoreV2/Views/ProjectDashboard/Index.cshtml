@@ -1,0 +1,375 @@
+﻿@model ReportCoreV2.Models.ViewModel.ProjectDashboardViewModel
+<style>
+
+    /*.col-lg-2 {
+        max-width: 20%;
+        flex: 20%;
+    }*/
+
+    
+    .card-body{
+
+        background-color:#fbfbfb;
+        box-shadow: 0 0 10px 0 rgb(0,0,0,0.3);
+        text-align:center;
+        border-radius:0.25rem;
+    }
+    .project-title {
+        text-align: center;
+        margin-bottom:20px;
+        margin-top:20px;
+    }
+    .card-body-chart {
+        text-align: left;
+    }
+    .card-body-title {
+        text-align: left;
+        margin-bottom:30px;
+    }
+    h6{
+        font-size:0.8rem;
+    }
+    .chartDiv {
+        position: relative;
+        
+        width: 390px;
+        height:190px;
+    }
+    .top-card-body{
+        margin-left:8rem!important;
+        text-align:left;
+    }
+</style>
+@using (Html.BeginForm("Index", "ProjectDashboard", FormMethod.Post))
+{
+<header>
+
+    <div style=" margin-bottom:1.9rem">
+        <div class="row ">
+            <div class="col-lg-10">
+
+                
+
+            </div>
+            <div class="col-lg-2">
+                 @Html.DropDownListFor(m => m.selectedproject, Model.ProjectsDatalistAsString, "--Select Project--", new { @class = "form-control",  onchange = "this.form.submit();" })
+                @*<input type="submit" value="Go" class="btn btn-success btn-block" />*@
+            </div>
+        </div>
+     </div>
+
+</header>
+<div class="row mb-4 ">
+    <div class=" col-lg-1">
+
+    </div>
+    <div class="col-lg-5 col-md-6 ">
+        <div class=" card-body">
+            
+            <section class="align-items-center">
+                
+                <div class="project-title">
+
+                    <H1>@Model.ProjectName Dashboard</H1>
+                </div>
+
+            </section>
+        </div>
+
+    </div>
+    <div class="col-lg-5 col-md-6 ">
+        <div class=" card-body">
+            
+            <section class="d-flex align-items-center">
+                <div class="mr-5 ml-5">
+                    <img src="~/Images/blue-script.png">
+                </div>
+                <div class="top-card-body">
+
+                    <h1 style="color: #0066ff">@Model.TotalScenariosInProject </h1>
+                    <h2>Scenarios in Project </h2>
+                </div>
+
+            </section>
+        </div>
+
+    </div>
+    <div class=" col-lg-1">
+
+    </div>
+    
+
+</div>
+
+<div class="row mb-4">
+    <div class="col-lg-4 col-md-6">
+        <div class=" card-body">
+            <header class="card-body-title ">
+                <h5>Scenario Execition </h5>
+            </header>
+            <section>
+                <div class=" row">
+                    <div class="mr-5 mt-4">
+                        <img src="~/Images/Process.png">
+                    </div>
+                    <div class="col-md-3 mr-5 ml-3" style="text-align:left">
+
+                        <h3 style="color: #ff9f40">@Model.TotalOfCurrentMonthExecution </h3>
+                        <h6> @Html.DisplayFor(modelItem => Model.MonthName) @Html.DisplayFor(modelItem => Model.YearofData)</h6>
+                        <h5>@Model.TotalOfLastYearCurrentMonthExecution</h5>
+                        <h6>@Html.DisplayFor(modelItem => Model.MonthName) @Html.DisplayFor(modelItem => Model.LastYearofData)</h6>
+
+
+                    </div>
+                    <div class="col-md-3 ml-3" style="text-align:left">
+
+
+                        <h3 style="color: #ab80ed">@Model.TotalOfCurrentYearExecution </h3>
+                        <h6> Year of @Html.DisplayFor(modelItem => Model.YearofData)</h6>
+                        <h5>@Model.TotalOfLastYearExecution</h5>
+                        <h6> Year of @Html.DisplayFor(modelItem => Model.LastYearofData)</h6>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class=" card-body">
+            <header class="card-body-title ">
+                <h5>Scenario Creation </h5>
+            </header>
+            <section>
+                <div class=" row">
+                    <div class="mr-5 mt-4">
+                        <img src="~/Images/Process.png">
+                    </div>
+                    <div class="col-md-3 mr-5 ml-3" style="text-align:left">
+
+                        <h3 style="color: #08aebd">@Model.TotalOfCurrentMonthCreated </h3>
+                        <h6> @Html.DisplayFor(modelItem => Model.MonthName) @Html.DisplayFor(modelItem => Model.YearofData)</h6>
+                        <h5>@Model.TotalOfLastYearCurrentMonthCreated</h5>
+                        <h6>@Html.DisplayFor(modelItem => Model.MonthName) @Html.DisplayFor(modelItem => Model.LastYearofData)</h6>
+
+
+                    </div>
+                    <div class="col-md-3 ml-3" style="text-align:left">
+
+
+                        <h3 style="color: #54ca62">@Model.TotalOfCurrentYearCreated </h3>
+                        <h6> Year of @Html.DisplayFor(modelItem => Model.YearofData)</h6>
+                        <h5>@Model.TotalOfLastYearCreated</h5>
+                        <h6> Year of @Html.DisplayFor(modelItem => Model.LastYearofData)</h6>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class=" card-body">
+            <header class="card-body-title ">
+                <h5>Scenario Maintenance </h5>
+            </header>
+            <section>
+                <div class=" row">
+                    <div class="mr-5 mt-4">
+                        <img src="~/Images/Process.png">
+                    </div>
+                    <div class="col-md-3 mr-5 ml-3" style="text-align:left">
+
+                        <h3 style="color: #ff4444">@Model.TotalOfCurrentMonthMaintain </h3>
+                        <h6> @Html.DisplayFor(modelItem => Model.MonthName) @Html.DisplayFor(modelItem => Model.YearofData)</h6>
+                        <h5>@Model.TotalOfLastYearCurrentMonthMaintain</h5>
+                        <h6>@Html.DisplayFor(modelItem => Model.MonthName) @Html.DisplayFor(modelItem => Model.LastYearofData)</h6>
+
+
+                    </div>
+                    <div class="col-md-3 ml-3" style="text-align:left">
+
+
+                        <h3 style="color: #7688aa">@Model.TotalOfCurrentYearMaintain </h3>
+                        <h6> Year of @Html.DisplayFor(modelItem => Model.YearofData)</h6>
+                        <h5>@Model.TotalOfLastYearMaintain</h5>
+                        <h6> Year of @Html.DisplayFor(modelItem => Model.LastYearofData)</h6>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+    
+
+</div>
+
+<div class=" row mb-4">
+    <div class="col-lg-8">
+        <div class=" card-body">
+            @{
+                if (Model.CycleDataProjectDashboardDataForGraphs.Count != 0)
+                {
+                    foreach (var item in Model.CycleDataProjectDashboardDataForGraphs)
+                    {
+
+                        <header class="card-body-title ">
+                            <h5>Last Cycle Result - @Html.DisplayFor(modelitem => item.CycleNameForGraph)</h5>
+                        </header>
+                        <section>
+                            <div class=" row">
+                                <div class="col-md-2 " style="align-self:center">
+                                    <img src="~/Images/cycle-icon.png">
+                                </div>
+                                <div class=" col-md-3 card-body-chart">
+                                    <h4 class="text-primary mb-2 ">@Html.DisplayFor(modelitem => item.TotalScenariosinCycle)</h4>
+                                    <h6 class=" text-secondary mb-4">Total Scenarios</h6>
+                                    <h4 class="text-primary mb-2 ">@Html.DisplayFor(modelitem => item.PassScenariosinCycle)</h4>
+                                    <h6 class=" text-secondary mb-4">Pass Scenarios</h6>
+                                    <h4 class="text-primary mb-2 ">@Html.DisplayFor(modelitem => item.Passrate)%</h4>
+                                    <h6 class=" text-secondary mb-4">Pass Rate</h6>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class=" chartDiv align-items-center">
+                                        @{
+                                            await Html.RenderPartialAsync("_CycleChartForDashboard", item);
+                                        }
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+
+                    }
+                }
+                else
+                {
+                    <header class="card-body-title ">
+                        <h5>Last Cycle Result </h5>
+                    </header>
+                    <section>
+                        <div class=" row" >
+                            <div class=" col-md-3 col-sm-4">
+                                <h5>No Data to Display</h5>
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+
+                }
+            }
+        </div>
+    </div>
+
+    <div class="col-lg-4 ">
+        <div class=" card-body">
+            <header class="card-body-title ">
+                <h5>Scenario's type</h5>
+            </header>
+            <div class="row " style="margin-bottom:34px" >
+                <div class="col-lg-4 card-body-chart mt-4">
+                    <h4 class=" mb-2 " style="color: #ab80ed">@Model.ScenarioTypeRegression </h4>
+                    <h6> Regression scenarios</h6>
+                    <h4 style="color: #ab80ed">@Model.ScenarioTypeSanity </h4>
+                    <h6> Sanity scenarios</h6>
+                </div>
+
+                <div class="col-md-6" >
+                    <div class=" chartDiv align-items-center">
+                        @{
+                            foreach (var chart in Model.ScenarioTypeProjectDashboardDataForGraphs)
+                            {
+                                await Html.RenderPartialAsync("_ScenaryioTypeChart", chart);
+
+                            }
+                        }
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class=" row mb-4">
+    <div class=" col-lg-8">
+        <div class=" card-body">
+            <header class="card-body-title ">
+                <h5>Project recent users</h5>
+            </header>
+            <div class=" row ml-5 mr-5">
+                @{
+
+                    await Html.RenderPartialAsync("_UsersList");
+
+
+                }
+
+            </div>
+
+        </div>
+    </div>
+    <div class=" col-lg-4">
+        <div class=" card-body">
+            <header class="card-body-title ">
+                <h5>Project Touch points</h5>
+            </header>
+            <div class=" row">
+                <div class="col-lg-4 card-body-chart mt-4">
+                    <div class="row">
+                        @{
+                            foreach (var item in Model.ProjectAppLinks)
+                            {
+                                <div class="col-md-1 card-body-chart mr-5">
+                                    <h5 style="color: #ff4444">@item.Amount </h5>
+                                    <h6> @item.Name</h6>
+                                </div>
+                            }
+                         }
+                                </div>
+                            </div>
+                <div class="col-md-7 ">
+                    <div class=" chartDiv align-items-center">
+                        @{
+                            foreach (var chart in Model.ProjectAppLinksDashboardDataForGraphs)
+                            {
+                                await Html.RenderPartialAsync("_AppLinkChart", chart);
+
+                            }
+                        }
+
+
+                    </div>
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+
+</div>
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,0 +1,46 @@
+﻿@model ReportCoreV2.Models.ViewModel.DataPointsForGraphsViewModel
+<div id="@Html.Raw(Model.GuidID)">
+
+
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/Chart.min.js"></script>
+
+
+<script>
+    var result = @Html.Raw(Model.DataPointsAsStringForUI);
+    var type = @Html.Raw(Model.DataLabelsAsStringForUI);
+    var canvasElement = document.createElement("canvas");
+    var divElement = document.createElement("div");
+
+    divElement.appendChild(canvasElement);
+    $("#@Html.Raw(Model.GuidID)").append(divElement);
+
+    var oilData = {
+        labels: type,
+        datasets: [
+            {
+                data: result,
+                 backgroundColor: [
+                    "#5688ec",
+                    "#a649e0"
+                ]
+            }]
+    };
+
+    var pieChart = new Chart(canvasElement, {
+        showTooltips: false,
+        type: 'pie',
+        data: oilData,
+        options: {
+            tooltips: {
+                // Disable the on-canvas tooltip
+                enabled: true,
+            },
+            legend: {
+                display: false,
+            },
+        }
+    });
+</script>

@@ -1,0 +1,104 @@
+﻿
+@model ReportCoreV2.Models.ViewModel.ApprovedScenarioViewModel
+
+<link rel="stylesheet" type="text/css" href="~/DataTables/datatables.min.css" />
+<style>
+    thead {
+        background-color: #fff;
+        color: #28a745;
+        font-style: oblique;
+    }
+    .card-body {
+        background-color: #fbfbfb;
+        box-shadow: 0 0 10px 0 rgb(0,0,0,0.3);
+        border-radius: 0.25rem;
+    }
+
+    h1 {
+        font-size: xx-large;
+    }
+   
+    
+</style>
+
+@{
+    ViewData["Title"] = "Display Data";
+    string[] TableHeaders = new string[] {"Project"
+                        ,"Year"
+                        ,"January"
+                        ,"February"
+                        ,"March"
+                        ,"April"
+                        ,"May"
+                        ,"June"
+                        ,"July"
+                        ,"August"
+                        ,"September"
+                        ,"October"
+                        ,"November"
+                        ,"December"
+                        ,"Total"};
+}
+
+
+<header class="mt-3 mb-5">
+    <h1>Creation Report</h1>
+</header>
+<div class=" card-body">
+    <div class="table">
+
+        <table id="myTable" class="table table-bordered table-hover table-sm">
+            <thead>
+                <tr>
+                    @{
+                        foreach (var head in TableHeaders)
+                        {
+                            <th>
+                                @head
+                            </th>
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @{ if (Model != null)
+                    {
+                        foreach (var Data in Model.ApprovedScenarioDataForUi)
+                        {
+                            <tr>
+                                <td>@Data.ProjectOwner</td>
+                                <td>@Data.Year</td>
+                                <td>@Data.January</td>
+                                <td>@Data.February</td>
+                                <td>@Data.March</td>
+                                <td>@Data.April</td>
+                                <td>@Data.May</td>
+                                <td>@Data.June</td>
+                                <td>@Data.July</td>
+                                <td>@Data.August</td>
+                                <td>@Data.September</td>
+                                <td>@Data.October</td>
+                                <td>@Data.November</td>
+                                <td>@Data.December</td>
+                                <td>@Data.ProjectTotal</td>
+                            </tr>
+                        }
+
+
+                    }
+                }
+            </tbody>
+        </table>
+        <a href="@(Url.Action("ExportApprovedScenario") + ViewContext.HttpContext.Request.QueryString)">
+            <span class="icon-file-excel-o mr-3"></span>
+        </a>
+
+    </div>
+</div>
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script type="text/javascript" src="~/DataTables/datatables.min.js"></script>

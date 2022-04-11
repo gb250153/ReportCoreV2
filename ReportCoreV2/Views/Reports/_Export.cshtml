@@ -1,0 +1,7 @@
+﻿@model ReportCoreV2.Models.ViewModel.ExecutionLogViewModel
+
+
+
+<a href="@(Url.Action("ExportIndex") + ViewContext.HttpContext.Request.QueryString)">
+    <span class="icon-file-excel-o mr-3"></span>Export
+</a>

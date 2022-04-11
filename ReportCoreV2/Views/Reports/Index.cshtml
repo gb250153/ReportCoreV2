@@ -1,0 +1,85 @@
+﻿@model ReportCoreV2.Models.ViewModel.ExecutionLogViewModel
+
+
+@{
+    ViewData["Title"] = "Display Data";
+    string[] TableHeaders = new string[] {"Project"
+                        ,"Year"
+                        ,"January"
+                        ,"February"
+                        ,"March"
+                        ,"April"
+                        ,"May"
+                        ,"June"
+                        ,"July"
+                        ,"August"
+                        ,"September"
+                        ,"October"
+                        ,"November"
+                        ,"December"
+                        ,"Total"};
+}
+
+
+<link rel="stylesheet" type="text/css" href="~/DataTables/datatables.min.css" />
+
+<style>
+    thead {
+        background-color: #70BF60;
+        color: White;
+    }
+</style>
+
+<div class="table">
+    <table id="myTable" class="table table-bordered table-hover table-sm">
+        <thead>
+            <tr>
+                @{
+                    foreach (var head in TableHeaders)
+                    {
+                        <th>
+                            @head
+                        </th>
+                    }
+                }
+            </tr>
+        </thead>
+
+        <tbody>
+            @{ if (Model != null)
+                {
+                    foreach (var Data in Model.ExecutionLogDataForUi)
+                    {
+                        <tr>
+                            <td>@Data.Project</td>
+                            <td>@Data.Year</td>
+                            <td>@Data.January</td>
+                            <td>@Data.February</td>
+                            <td>@Data.March</td>
+                            <td>@Data.April</td>
+                            <td>@Data.May</td>
+                            <td>@Data.June</td>
+                            <td>@Data.July</td>
+                            <td>@Data.August</td>
+                            <td>@Data.September</td>
+                            <td>@Data.October</td>
+                            <td>@Data.November</td>
+                            <td>@Data.December</td>
+                            <td>@Data.ProjectTotal</td>
+                        </tr>
+                    }
+
+
+                }
+            }
+        </tbody>
+    </table>
+
+</div>
+   
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script type="text/javascript" src="~/DataTables/datatables.min.js"></script>
+
+

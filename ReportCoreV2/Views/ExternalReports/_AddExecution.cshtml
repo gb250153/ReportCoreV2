@@ -1,0 +1,67 @@
+﻿@model ReportCoreV2.Models.ViewModel.ExternalDataAddViewModel
+
+@using (Html.BeginForm("_AddExecution", "ExternalReports", FormMethod.Post))
+{
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Execution</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label">Projects</label>
+
+                    @Html.DropDownListFor(m => m.Project, Model.ProjectsDatalistAsString, "--Select Project--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Project, "", new { @class = "text-danger" })
+                    <span class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="EntryDate" class="control-label">Entry Date</label>
+                    <input type="text" id="datePicker" name="EntryDate" class="form-control" value="@Model.EntryDate">
+                    @Html.ValidationMessageFor(m => m.EntryDate, "", new { @class = "text-danger" })
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Amount" class="control-label">Total Scripts</label>
+                    @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @placeholder = "Total Scripts" })
+                    @Html.ValidationMessageFor(m => m.Amount, "", new { @class = "text-danger" })
+                    <span class="text-danger"></span>
+                </div>
+
+                <div style="float:right">
+
+                    <input type="submit" value="Save" class="btn btn-success btn-block" />
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+}
+    <link href="~/lib/jqueryui/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+
+
+    <script>
+        var Myjquery22 = jQuery.noConflict();
+
+        Myjquery22(document).ready(function () {
+            Myjquery22.noConflict();
+            // adding datepicker to control
+            Myjquery22('#datePicker').datepicker({
+                maxDate: 0,
+                minDate: -60,
+            });
+            Myjquery22('#datePicker').datepicker("setDate", new Date());
+
+
+
+        });
+    </script>

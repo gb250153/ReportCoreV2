@@ -1,0 +1,133 @@
+﻿
+@model ReportCoreV2.Models.ViewModel.DataPointsForGraphsViewModel
+
+<div id="@Html.Raw(Model.GuidID)">
+
+
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/Chart.min.js"></script>
+
+
+<script>
+    var Myjquery = jQuery.noConflict();
+   var result = @Html.Raw(Model.DataPointsAsStringForUI);
+   var projectname =@Html.Raw(Model.DataLabelsAsStringForUI);
+
+    var canvasElement = document.createElement("canvas");
+    var divElement = document.createElement("div");
+
+    divElement.appendChild(canvasElement);
+    Myjquery("#@Html.Raw(Model.GuidID)").append(divElement);
+        //$("#drawHere").append(canvas);
+    //    $("#drawHere").html(canvasElement);
+    var myChart = new Chart(canvasElement, {
+            showtooltip: false,
+        type: 'bar',
+            data: {
+                labels: projectname,
+            //labels: names,
+            datasets: [{
+                label: '# of Votes',
+                data: result,
+                 backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                     'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+
+
+			}]
+			},
+
+        options: {
+            tooltips: {
+                // Disable the on-canvas tooltip
+                enabled: true,
+            },
+            legend: {
+                display: false,
+        },
+
+                animation: {
+                        duration: 1,
+                        onComplete: function () {
+                            var chartInstance = this.chart,
+                                ctx = chartInstance.ctx;
+
+                            ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'bottom';
+
+                            this.data.datasets.forEach(function (dataset, i) {
+                                var meta = chartInstance.controller.getDatasetMeta(i);
+                                meta.data.forEach(function (bar, index) {
+                                    if (dataset.data[index] > 0) {
+                                        var data = dataset.data[index];
+                                        ctx.fillText(data, bar._model.x, bar._model.y);
+                                    }
+                                });
+                            });
+                        }
+                    },
+
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+		}
+    });
+
+
+
+
+</script>
